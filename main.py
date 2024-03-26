@@ -10,15 +10,6 @@ def cv_show(name,img):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-
-
-    FIRST_NUMBER={
-        "3": "American Express",
-        "4": "Visa",
-        "5": "MasterCard",
-        "6": "Discover Card"
-    }
-
     #读入模板图像，转为灰度-》转为二值
     Template=cv.imread("images/ocr_a_reference.png")
     GrayTemplate=cv.cvtColor(Template,cv.COLOR_BGR2GRAY)#转为灰度图
@@ -96,7 +87,7 @@ if __name__ == '__main__':
         ar = w / float(h)
         #print(ar)
 
-        #保留数字组
+        #保留所有轮廓中的数字组
         if ar>2.5 and ar<4.0:
             if (w>40 and w<55) and(h>10 and h<20):
                 locs.append((x,y,w,h))
@@ -117,7 +108,7 @@ if __name__ == '__main__':
 
         #计算每一个数字组中的每一个数
         for c in digitCnts:
-                # 找到当前数值的轮廓，resize成合适的的大小
+            #找到当前数值的轮廓，resize成合适的的大小
             (x, y, w, h) = cv.boundingRect(c)
             roi = group[y:y + h, x:x + w]
             roi = cv.resize(roi, (57, 88))
